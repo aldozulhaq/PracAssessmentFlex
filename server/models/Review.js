@@ -9,6 +9,7 @@ const ReviewSchema = new mongoose.Schema({
     enum: ['host-to-guest', 'guest-to-host']
   },
   listingName: { type: String, required: true },
+  channel: { type: String, default: 'Unknown' },
   guestName: { type: String, required: true },
   publicReview: { type: String, default: '' },
   submittedAt: { type: Date, required: true },
