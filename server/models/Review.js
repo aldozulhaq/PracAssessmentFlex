@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const ReviewSchema = new mongoose.Schema({
   sourceId: { type: String, required: true, unique: true }, // Will have unique IDs for each review coming from different sources, nice to have
   source: { type: String, required: true, enum: ['Hostaway', 'Google'] },
+  type: {
+    type: String,
+    required: true,
+    enum: ['host-to-guest', 'guest-to-host']
+  },
   listingName: { type: String, required: true },
   guestName: { type: String, required: true },
   publicReview: { type: String, default: '' },

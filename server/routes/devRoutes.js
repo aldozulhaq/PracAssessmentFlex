@@ -28,6 +28,7 @@ const normalizeHostawayReview = (rawReview) => {
     return {
         sourceId: rawReview.id.toString(),
         source: 'Hostaway',
+        type: rawReview.type,
         listingName: rawReview.listingName,
         guestName: rawReview.guestName,
         publicReview: rawReview.publicReview,
