@@ -14,6 +14,14 @@ import { ChevronDownIcon, ChevronUpIcon, SearchIcon } from './Icons';
 
 import ReviewDetailCard from './ReviewDetailCard';
 
+const getRatingColorClass = (rating) => {
+  if (rating >= 9) return 'text-green-600';
+  if (rating >= 7) return 'text-lime-600';
+  if (rating >= 5) return 'text-yellow-600';
+  if (rating >= 3) return 'text-orange-600';
+  return 'text-red-600';
+};
+
 const AdvancedFilter = ({ column, table }) => {
   const [showFilter, setShowFilter] = useState(false);
   const filterVariant = column.columnDef.meta?.filterVariant;
@@ -72,6 +80,8 @@ const AdvancedFilter = ({ column, table }) => {
           isClearable
           placeholder="Select..."
           className="w-48 text-sm"
+          menuPortalTarget={document.body} 
+          styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
         />
       );
     }
@@ -86,6 +96,7 @@ const AdvancedFilter = ({ column, table }) => {
                 isClearable
                 placeholderText="Select a date"
                 className="w-full border rounded px-2 py-1"
+                portalId="root-datepicker"
             />
         );
     }
@@ -114,6 +125,26 @@ const AdvancedFilter = ({ column, table }) => {
             className="w-20 border-gray-200 rounded shadow-sm text-sm"
           />
         </div>
+      );
+    }
+
+    if (filterVariant === 'boolean') {
+      const options = [
+        { label: 'All', value: '' },
+        { label: 'Approved', value: true },
+        { label: 'Pending', value: false },
+      ];
+      const selectedValue = options.find(o => o.value === String(column.getFilterValue()));
+
+      return (
+        <Select
+          options={options}
+          value={selectedValue}
+          onChange={option => column.setFilterValue(option ? option.value : undefined)}
+          className="w-40 text-sm"
+          menuPortalTarget={document.body}
+          styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+        />
       );
     }
 
@@ -176,8 +207,8 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
       cell: info => (
         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
             info.getValue() === 'guest-to-host' 
-                ? 'bg-blue-100 text-blue-800' 
-                : 'bg-indigo-100 text-indigo-800'
+                ? 'bg-blue-100 text-blue-800'
+                : 'bg-green-100 text-geren-800'
         }`}>
             {info.getValue().replace('-', ' to ')}
         </span>
@@ -192,7 +223,15 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
       accessorKey: 'averageRating',
       header: 'Rating',
       meta: { filterVariant: 'numberRange' },
-      cell: info => <div className="text-center">{info.getValue().toFixed(1)}</div>,
+      cell: info => {
+        const rating = info.getValue();
+        const colorClass = getRatingColorClass(rating);
+        return (
+          <div className={`text-center ${colorClass}`}>
+            {rating.toFixed(1)}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'submittedAt',
@@ -203,6 +242,10 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     {
       id: 'actions',
       header: 'Approve for Website',
+      enableSorting: false,
+      enableColumnFilter: true,
+      meta: { filterVariant: 'boolean' },
+      accessorFn: row => row.isApprovedForPublic, 
       cell: ({ row }) => {
         const review = row.original;
 
@@ -268,7 +311,7 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
       </div>
       
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full table-fixed">
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
@@ -288,7 +331,7 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="min-h-[1500px]">
             {table.getRowModel().rows.map(row => (
               <Fragment key={row.id}>
                 <tr className="hover:bg-flex-cream border-b border-gray-100">
