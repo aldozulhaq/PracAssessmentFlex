@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 
 const reviewRoutes = require('./routes/reviewRoutes');
 const devRoutes = require('./routes/devRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/dev', devRoutes);
+app.use('/api/ai', aiRoutes);
 
 const PORT = process.env.PORT || 5001;
 

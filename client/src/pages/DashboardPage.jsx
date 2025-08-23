@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReviewsTable from '../components/ReviewsTable';
 import StatsCards from '../components/StatsCards';
 import DashboardCharts from '../components/DashboardCharts';
+import AIInsights from '../components/AIInsights';
 
 const DashboardPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -104,12 +105,13 @@ const DashboardPage = () => {
           Review, filter, and approve guest reviews for public display.
         </p>
       </div>
-      
+
       <StatsCards reviews={reviews} />
 
       {chartData && <DashboardCharts chartData={chartData} />}
       
-      {/* We can wrap the table in a container for a title */}
+      <AIInsights reviews={reviews} />
+
       <div>
          <h2 className="text-2xl font-bold text-flex-dark-green mb-4">All Reviews</h2>
          <ReviewsTable data={reviews} onUpdateReview={handleUpdateReview} />

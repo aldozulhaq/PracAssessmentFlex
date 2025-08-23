@@ -8,6 +8,7 @@ import ImageGallery from '../components/public/ImageGallery';
 import AmenitiesPreview from '../components/public/AmenitiesPreview';
 import { UsersIcon, BedIcon } from '../components/Icons';
 import GoogleReviewsSection from '../components/public/GoogleReviewsSection';
+import PublicAISummary from '../components/public/PublicAISummary';
 
 const PropertyPage = () => {
   const { listingName } = useParams();
@@ -77,10 +78,16 @@ const PropertyPage = () => {
               <>
                 {reviews.length > 0 ? (
                   <>
-                    <div className="flex items-center space-x-2 mb-6">
-                      <StarRating rating={overallRating} />
-                      <span className="font-bold text-lg">{overallRating}</span>
-                      <span className="text-flex-text-secondary">({reviews.length} reviews)</span>
+                    <div className="space-y-8">
+                        
+                      <PublicAISummary reviews={reviews} />
+                      
+                      <div className="flex items-center space-x-2">
+                       <StarRating rating={overallRating} />
+                       <span className="font-bold text-lg">{overallRating}</span>
+                       <span className="text-flex-text-secondary">({reviews.length} reviews)</span>
+                      </div>
+
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {reviews.map(review => (
