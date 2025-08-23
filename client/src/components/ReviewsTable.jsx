@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef, useEffect, Fragment } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -9,8 +9,10 @@ import {
 } from '@tanstack/react-table';
 import axios from 'axios';
 import Select from 'react-select'; 
-import DatePicker from 'react-datepicker'; 
-import { SearchIcon } from './Icons';
+import DatePicker from 'react-datepicker';
+import { ChevronDownIcon, ChevronUpIcon, SearchIcon } from './Icons';
+
+import ReviewDetailCard from './ReviewDetailCard';
 
 const AdvancedFilter = ({ column, table }) => {
   const [showFilter, setShowFilter] = useState(false);
@@ -147,6 +149,19 @@ const AdvancedFilter = ({ column, table }) => {
 const ReviewsTable = ({ data, onUpdateReview }) => {
   const columns = useMemo(() => [
     {
+      id: 'expander',
+      header: () => null,
+      cell: ({ row }) => (
+        <button
+          onClick={row.getToggleExpandedHandler()}
+          className="text-xl text-flex-dark-green"
+          title={row.getIsExpanded() ? 'Collapse' : 'Expand'}
+        >
+          {row.getIsExpanded() ? '⊖' : '⊕'}
+        </button>
+      ),
+    },
+    {
       accessorKey: 'listingName',
       header: 'Property',
       meta: { filterVariant: 'select' },
@@ -226,6 +241,7 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
   const table = useReactTable({
     data,
     columns,
+    getRowCanExpand: () => true,
     state: {
       globalFilter,
       columnFilters,
@@ -260,9 +276,9 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
                 {headerGroup.headers.map(header => (
                   <th key={header.id} className="p-3 text-left ...">
                     <div className="flex items-center justify-between">
-                      <div onClick={header.column.getToggleSortingHandler()} className="cursor-pointer select-none">
+                      <div onClick={header.column.getToggleSortingHandler()} className="cursor-pointer select-none flex items-center gap-1">
                         {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{ asc: ' 🔼', desc: ' 🔽' }[header.column.getIsSorted()] ?? null}
+                        {{ asc: <ChevronUpIcon/>, desc: <ChevronDownIcon/> }[header.column.getIsSorted()] ?? null}
                       </div>
                       {header.column.getCanFilter() ? (
                         <AdvancedFilter column={header.column} table={table} />
@@ -275,13 +291,23 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map(row => (
-              <tr key={row.id} className="hover:bg-flex-cream border-b border-gray-100">
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id} className="p-3 text-sm text-flex-text-primary">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
+              <Fragment key={row.id}>
+                <tr className="hover:bg-flex-cream border-b border-gray-100">
+                  {row.getVisibleCells().map(cell => (
+                    <td key={cell.id} className="p-3 text-sm text-flex-text-primary align-middle">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+                {/* --- EXPANDED CONTENT ROW --- */}
+                {row.getIsExpanded() && (
+                  <tr className="border-b-2 border-flex-dark-green">
+                    <td colSpan={row.getVisibleCells().length}>
+                      <ReviewDetailCard review={row.original} />
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             ))}
           </tbody>
         </table>
