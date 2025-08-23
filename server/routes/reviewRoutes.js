@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Review = require('../models/Review');
+const axios = require('axios'); 
 
 // @desc    Get all reviews for the manager dashboard
 // @route   GET /api/reviews
@@ -47,5 +48,32 @@ router.get('/public/:listingName', async (req, res) => {
     }
 });
 
+router.get('/google/:dataId', async (req, res) => {
+  try {
+    const { dataId } = req.params;
+    const apiKey = process.env.SERPAPI_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({ message: 'SerpAPI key is not configured.' });
+    }
+
+    const endpoint = `https://serpapi.com/search.json?engine=google_maps_reviews&data_id=${dataId}&api_key=${apiKey}`;
+    
+    console.log(`Fetching Google Reviews for data_id: ${dataId}`);
+    const response = await axios.get(endpoint);
+
+    if (response.data && response.data.reviews) {
+      res.json({
+        reviews: response.data.reviews,
+        viewMoreUrl: response.data.search_metadata?.google_maps_reviews_url
+      });
+    } else {
+      res.json({ reviews: [], viewMoreUrl: null });
+    }
+  } catch (error) {
+    console.error('SerpAPI Error:', error.response ? error.response.data : error.message);
+    res.status(500).json({ message: 'Failed to fetch Google Reviews.' });
+  }
+});
 
 module.exports = router;

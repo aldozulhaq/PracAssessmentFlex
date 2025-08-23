@@ -7,6 +7,7 @@ import StarRating from '../components/public/StarRating';
 import ImageGallery from '../components/public/ImageGallery';
 import AmenitiesPreview from '../components/public/AmenitiesPreview';
 import { UsersIcon, BedIcon } from '../components/Icons';
+import GoogleReviewsSection from '../components/public/GoogleReviewsSection';
 
 const PropertyPage = () => {
   const { listingName } = useParams();
@@ -36,6 +37,8 @@ const PropertyPage = () => {
     const total = reviews.reduce((acc, r) => acc + r.averageRating, 0);
     return (total / reviews.length).toFixed(2);
   }, [reviews]);
+
+  const googleDataId = reviews.length > 0 ? reviews[0].sourceId : null;
 
   return (
     <div className="bg-flex-white">
@@ -92,6 +95,8 @@ const PropertyPage = () => {
                 )}
               </>
             )}
+
+            <GoogleReviewsSection dataId={googleDataId} />
           </div>
 
           <div>
