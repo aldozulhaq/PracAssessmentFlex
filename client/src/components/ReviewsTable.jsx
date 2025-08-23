@@ -9,11 +9,29 @@ import {
 } from '@tanstack/react-table';
 import axios from 'axios';
 
+const Filter = ({ column }) => {
+  const columnFilterValue = column.getFilterValue();
+
+  return (
+    <input
+      type="text"
+      value={(columnFilterValue ?? '')}
+      onChange={e => column.setFilterValue(e.target.value)}
+      onClick={(e) => e.stopPropagation()} // Prevent sorting when clicking in the filter box
+      placeholder={`Search...`}
+      className="w-full border shadow rounded px-2 py-1 mt-1 text-sm"
+    />
+  );
+};
+
 const ReviewsTable = ({ data, onUpdateReview }) => {
   const columns = useMemo(() => [
     {
       accessorKey: 'listingName',
       header: 'Property',
+      meta: {
+        filterVariant: 'text',
+      },
     },
     {
       accessorKey: 'type',
@@ -79,9 +97,18 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     },
   ], [onUpdateReview]);
 
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [columnFilters, setColumnFilters] = useState([]);
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      globalFilter,
+      columnFilters,
+    },
+    onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -91,7 +118,16 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      {/* Filter later here */}
+      
+      <div className="mb-4">
+        <input
+          type="text"
+          value={globalFilter ?? ''}
+          onChange={e => setGlobalFilter(e.target.value)}
+          placeholder="Search all columns..."
+          className="border shadow rounded px-3 py-2 w-full md:w-1/3"
+        />
+      </div>
       
       <table className="w-full border-collapse">
         <thead>
@@ -110,6 +146,11 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
                       desc: ' 🔽',
                     }[header.column.getIsSorted()] ?? null}
                   </div>
+                  {header.column.getCanFilter() ? (
+                        <div>
+                            <Filter column={header.column} />
+                        </div>
+                    ) : null}
                 </th>
               ))}
             </tr>
