@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const RatingBreakdown = ({ label, rating }) => (
   <div className="flex justify-between text-sm">
@@ -13,7 +14,6 @@ const ReviewDetailCard = ({ review }) => {
   return (
     <div className="bg-flex-cream p-6 rounded-md shadow-inner grid grid-cols-1 md:grid-cols-3 gap-8">
       
-      {/* --- Full Review Column --- */}
       <div className={hasRatings ? "md:col-span-2" : "md:col-span-3"}>
         <h4 className="font-semibold text-flex-dark-green mb-2">Full Review</h4>
         <p className="text-sm text-flex-text-primary leading-relaxed prose prose-sm">
@@ -35,6 +35,17 @@ const ReviewDetailCard = ({ review }) => {
           </div>
         </div>
       )}
+
+      <div className="col-span-1 md:col-span-3 flex justify-end pt-4 border-t border-white/50">
+        <Link
+          to={`/property/${encodeURIComponent(review.listingName)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs font-medium bg-white text-flex-dark-green px-3 py-1 rounded-full shadow-sm hover:bg-gray-100 transition-colors border border-gray-200"
+        >
+          View Public Page ↗
+        </Link>
+      </div>
     </div>
   );
 };

@@ -22,9 +22,6 @@ function App() {
               <NavLink to="/" className={navLinkClass}>
                 Dashboard
               </NavLink>
-              <NavLink to="/property/2B N1 A - 29 Shoreditch Heights" className={navLinkClass}>
-                Public View
-              </NavLink>
               <NavLink to="/dev-tools" className={navLinkClass}>
                 Dev Tools
               </NavLink>

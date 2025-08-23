@@ -13,19 +13,12 @@ import DashboardPage from './pages/DashboardPage.jsx';
 import PropertyPage from './pages/PropertyPage.jsx';
 import DevToolsPage from './pages/DevToolsPage.jsx';
 
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
-
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
       { index: true, element: <DashboardPage /> },
-      // We'll make the property name a dynamic parameter
       { path: 'property/:listingName', element: <PropertyPage /> },
       { path: 'dev-tools', element: <DevToolsPage /> },
     ]
