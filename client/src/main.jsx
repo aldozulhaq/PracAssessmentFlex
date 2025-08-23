@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import 'react-datepicker/dist/react-datepicker.css';
 import './index.css'
 
 

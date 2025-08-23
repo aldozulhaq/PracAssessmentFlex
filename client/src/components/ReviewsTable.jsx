@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -8,19 +8,139 @@ import {
   flexRender,
 } from '@tanstack/react-table';
 import axios from 'axios';
+import Select from 'react-select'; 
+import DatePicker from 'react-datepicker'; 
+import { SearchIcon } from './Icons';
 
-const Filter = ({ column }) => {
-  const columnFilterValue = column.getFilterValue();
+const AdvancedFilter = ({ column, table }) => {
+  const [showFilter, setShowFilter] = useState(false);
+  const filterVariant = column.columnDef.meta?.filterVariant;
+  const datePickerRef = useRef(null);
+  const popoverRef = useRef(null);
 
+  const uniqueValues = useMemo(() => {
+    if (filterVariant !== 'select') return [];
+    const unique = new Set(table.getPreFilteredRowModel().rows.map(row => row.getValue(column.id)));
+    return [...unique].sort().map(value => ({ label: value, value }));
+  }, [table.getPreFilteredRowModel(), column.id, filterVariant]);
+
+  const onFilterChange = (value) => {
+    if (filterVariant === 'select') {
+      column.setFilterValue(value?.value || undefined);
+    } else if (filterVariant === 'date') {
+      column.setFilterValue(value ? value.toISOString() : undefined);
+    } else {
+      column.setFilterValue(value);
+    }
+  };
+
+  const toggleFilter = () => {
+    const newShowFilter = !showFilter;
+    setShowFilter(newShowFilter);
+    if (newShowFilter && filterVariant === 'date') {
+      setTimeout(() => {
+        datePickerRef.current?.setFocus();
+      }, 100);
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+        setShowFilter(false);
+      }
+    };
+
+    if (showFilter) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showFilter]);
+
+  const renderFilter = () => {
+    if (filterVariant === 'select') {
+      return (
+        <Select
+          options={uniqueValues}
+          value={uniqueValues.find(o => o.value === column.getFilterValue())}
+          onChange={onFilterChange}
+          isClearable
+          placeholder="Select..."
+          className="w-48 text-sm"
+        />
+      );
+    }
+
+    if (filterVariant === 'date') {
+        const selectedDate = column.getFilterValue() ? new Date(column.getFilterValue()) : null;
+        return (
+            <DatePicker
+                ref={datePickerRef}
+                selected={selectedDate}
+                onChange={onFilterChange}
+                isClearable
+                placeholderText="Select a date"
+                className="w-full border rounded px-2 py-1"
+            />
+        );
+    }
+
+    if (filterVariant === 'numberRange') {
+      const [min, max] = column.getFilterValue() ?? [];
+      return (
+        <div className="flex items-center space-x-2">
+          <input
+            type="number"
+            min={0}
+            max={10}
+            value={min ?? ''}
+            onChange={e => column.setFilterValue(old => [e.target.value, old?.[1]])}
+            placeholder="Min"
+            className="w-20 border-gray-200 rounded shadow-sm text-sm"
+          />
+          <span>to</span>
+          <input
+            type="number"
+            min={0}
+            max={10}
+            value={max ?? ''}
+            onChange={e => column.setFilterValue(old => [old?.[0], e.target.value])}
+            placeholder="Max"
+            className="w-20 border-gray-200 rounded shadow-sm text-sm"
+          />
+        </div>
+      );
+    }
+
+    return (
+      <input
+        type="text"
+        value={(column.getFilterValue() ?? '')}
+        onChange={e => onFilterChange(e.target.value)}
+        placeholder={`Search...`}
+        className="w-full border shadow rounded px-2 py-1 text-sm"
+      />
+    );
+  };
+  
   return (
-    <input
-      type="text"
-      value={(columnFilterValue ?? '')}
-      onChange={e => column.setFilterValue(e.target.value)}
-      onClick={(e) => e.stopPropagation()} // Prevent sorting when clicking in the filter box
-      placeholder={`Search...`}
-      className="w-full border shadow rounded px-2 py-1 mt-1 text-sm"
-    />
+    <div className="relative">
+      <button onClick={toggleFilter} className="p-1 rounded-full hover:bg-gray-200">
+        <SearchIcon />
+      </button>
+      {showFilter && (
+        <div
+            ref={popoverRef}
+            className="absolute top-full right-0 mt-1 z-10 bg-white p-2 rounded-md shadow-lg border"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+        >
+          {renderFilter()}
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -29,13 +149,12 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     {
       accessorKey: 'listingName',
       header: 'Property',
-      meta: {
-        filterVariant: 'text',
-      },
+      meta: { filterVariant: 'select' },
     },
     {
       accessorKey: 'type',
       header: 'Type',
+      meta: { filterVariant: 'select' },
       cell: info => (
         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
             info.getValue() === 'guest-to-host' 
@@ -48,21 +167,25 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     },
     {
       accessorKey: 'guestName',
+      meta: { filterVariant: 'select' },
       header: 'Guest',
     },
     {
       accessorKey: 'averageRating',
       header: 'Rating',
+      meta: { filterVariant: 'numberRange' },
       cell: info => <div className="text-center">{info.getValue().toFixed(1)}</div>,
     },
     {
       accessorKey: 'submittedAt',
       header: 'Date',
+      meta: { filterVariant: 'date' },
       cell: info => new Date(info.getValue()).toLocaleDateString(),
     },
     {
       id: 'actions',
       header: 'Approve for Website',
+      enableColumnFilter: false,
       cell: ({ row }) => {
         const review = row.original;
 
@@ -135,26 +258,20 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id} className="p-3 text-left text-sm font-semibold text-flex-text-secondary uppercase tracking-wider border-b border-gray-200 align-top">
-                  <div
-                    onClick={header.column.getToggleSortingHandler()}
-                    className="cursor-pointer select-none"
-                  >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {{
-                      asc: ' 🔼',
-                      desc: ' 🔽',
-                    }[header.column.getIsSorted()] ?? null}
-                  </div>
-                  {header.column.getCanFilter() ? (
-                        <div>
-                            <Filter column={header.column} />
-                        </div>
-                    ) : null}
-                </th>
-              ))}
-            </tr>
-          ))}
+                  <th key={header.id} className="p-3 text-left ...">
+                    <div className="flex items-center justify-between">
+                      <div onClick={header.column.getToggleSortingHandler()} className="cursor-pointer select-none">
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{ asc: ' 🔼', desc: ' 🔽' }[header.column.getIsSorted()] ?? null}
+                      </div>
+                      {header.column.getCanFilter() ? (
+                        <AdvancedFilter column={header.column} table={table} />
+                      ) : null}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
           </thead>
           <tbody>
             {table.getRowModel().rows.map(row => (
