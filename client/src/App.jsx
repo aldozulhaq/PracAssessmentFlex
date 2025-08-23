@@ -22,9 +22,6 @@ function App() {
               <NavLink to="/" className={navLinkClass}>
                 Dashboard
               </NavLink>
-              <NavLink to="/dev-tools" className={navLinkClass}>
-                Dev Tools
-              </NavLink>
             </div>
           </div>
         </nav>
