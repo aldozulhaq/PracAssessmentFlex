@@ -10,6 +10,7 @@ const ReviewSchema = new mongoose.Schema({
   },
   listingName: { type: String, required: true },
   channel: { type: String, default: 'Unknown' },
+  googleDataId: { type: String },
   guestName: { type: String, required: true },
   publicReview: { type: String, default: '' },
   submittedAt: { type: Date, required: true },

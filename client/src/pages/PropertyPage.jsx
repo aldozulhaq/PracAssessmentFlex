@@ -39,7 +39,7 @@ const PropertyPage = () => {
     return (total / reviews.length).toFixed(2);
   }, [reviews]);
 
-  const googleDataId = reviews.length > 0 ? reviews[0].sourceId : null;
+  const googleDataId = reviews.length > 0 ? reviews[0].googleDataId : null;
 
   return (
     <div className="bg-flex-white">

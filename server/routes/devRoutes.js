@@ -30,6 +30,7 @@ const normalizeHostawayReview = (rawReview) => {
         source: 'Hostaway',
         type: rawReview.type,
         listingName: rawReview.listingName,
+        googleDataId: rawReview.googleDataId,
         guestName: rawReview.guestName,
         publicReview: rawReview.publicReview,
         submittedAt: new Date(rawReview.submittedAt),
@@ -59,7 +60,7 @@ router.post('/seed-database', async (req, res) => {
             if (response.data && response.data.result && response.data.result.length > 0) {
                 console.log('Successfully fetched reviews from Hostaway API.');
                 rawReviews = response.data.result;
-                source = 'Hostaway API'; // Update source if API call was successful
+                source = 'Hostaway API';
             } else {
                 console.log('Hostaway API returned no reviews. Proceeding with mock data fallback.');
             }
@@ -72,7 +73,6 @@ router.post('/seed-database', async (req, res) => {
             const filePath = path.join(__dirname, '..', 'data', 'reviews.json');
             const reviewsData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
             rawReviews = reviewsData.result || reviewsData;
-            // The source is already 'Mock JSON File' by default
         }
 
         console.log(`Found ${rawReviews.length} raw reviews. Normalizing and filtering valid entries...`);
@@ -89,7 +89,7 @@ router.post('/seed-database', async (req, res) => {
 
         res.status(201).json({
             message: `Database successfully seeded with ${normalizedReviews.length} reviews.`,
-            source: source // Use the tracked source variable
+            source: source 
         });
 
     } catch (error) {
