@@ -44,6 +44,8 @@ const normalizeHostawayReview = (rawReview) => {
 router.post('/seed-database', async (req, res) => {
     try {
         let rawReviews = [];
+        let source = 'Mock JSON File'; // Default to mock file
+
         try {
             console.log('Attempting to fetch reviews from Hostaway API...');
             const url = 'https://api.hostaway.com/v1/reviews';
@@ -57,6 +59,7 @@ router.post('/seed-database', async (req, res) => {
             if (response.data && response.data.result && response.data.result.length > 0) {
                 console.log('Successfully fetched reviews from Hostaway API.');
                 rawReviews = response.data.result;
+                source = 'Hostaway API'; // Update source if API call was successful
             } else {
                 console.log('Hostaway API returned no reviews. Proceeding with mock data fallback.');
             }
@@ -69,10 +72,14 @@ router.post('/seed-database', async (req, res) => {
             const filePath = path.join(__dirname, '..', 'data', 'reviews.json');
             const reviewsData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
             rawReviews = reviewsData.result || reviewsData;
+            // The source is already 'Mock JSON File' by default
         }
 
-        console.log(`Normalizing ${rawReviews.length} reviews...`);
-        const normalizedReviews = rawReviews.map(normalizeHostawayReview);
+        console.log(`Found ${rawReviews.length} raw reviews. Normalizing and filtering valid entries...`);
+
+        const normalizedReviews = rawReviews
+            .filter(review => review && review.id)
+            .map(normalizeHostawayReview);
 
         console.log('Wiping existing reviews from database...');
         await Review.deleteMany({});
@@ -82,7 +89,7 @@ router.post('/seed-database', async (req, res) => {
 
         res.status(201).json({
             message: `Database successfully seeded with ${normalizedReviews.length} reviews.`,
-            source: rawReviews.length > 0 && !fs.existsSync ? 'Hostaway API' : 'Mock JSON File'
+            source: source // Use the tracked source variable
         });
 
     } catch (error) {

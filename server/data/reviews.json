@@ -24,6 +24,534 @@
             "submittedAt": "2020-08-21 22:45:14",
             "guestName": "Shane Finkelstein",
             "listingName": "2B N1 A - 29 Shoreditch Heights"
+        },
+        {
+            "id": 7454,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 5.0,
+            "publicReview": "The apartment was immaculate and beautifully decorated. John was an excellent host, very communicative and helpful. Location is perfect. Highly recommend!",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2020-09-05 11:10:23",
+            "guestName": "Alice Johnson",
+            "listingName": "Cozy Downtown Loft"
+        },
+        {
+            "id": 7455,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Bob was a bit late for check-out and left some dishes in the sink. Communication was okay, but could have been more responsive.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 6
+                },
+                {
+                    "category": "communication",
+                    "rating": 7
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 8
+                }
+            ],
+            "submittedAt": "2020-09-12 18:00:05",
+            "guestName": "Bob Williams",
+            "listingName": "2B N1 A - 29 Shoreditch Heights"
+        },
+        {
+            "id": 7456,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 3.5,
+            "publicReview": "Great location and a lovely apartment, but it wasn't as clean as we'd hoped upon arrival. We had to wipe down the kitchen counters ourselves. The host was apologetic when we messaged them.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 4
+                },
+                {
+                    "category": "communication",
+                    "rating": 8
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2020-10-01 14:22:00",
+            "guestName": "Charlie Davis",
+            "listingName": "Seaside Bungalow"
+        },
+        {
+            "id": 7457,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Alice was a perfect guest. Communicative, tidy, and respectful of the space. Welcome back anytime!",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2020-10-15 09:30:11",
+            "guestName": "Alice Johnson",
+            "listingName": "Seaside Bungalow"
+        },
+        {
+            "id": 7458,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 4.0,
+            "publicReview": "The place was great and as advertised. My only issue was that the host was a bit slow to respond to my questions before check-in, which made me a little nervous. Everything worked out fine in the end, though.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 9
+                },
+                {
+                    "category": "communication",
+                    "rating": 6
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2020-11-03 19:54:30",
+            "guestName": "Diana Miller",
+            "listingName": "The Urban Jungle - Penthouse Suite"
+        },
+        {
+            "id": 7459,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Unfortunately, Diana's group was quite loud and we received a complaint from a neighbor. They also left a bit of a mess in the kitchen.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 5
+                },
+                {
+                    "category": "communication",
+                    "rating": 8
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 4
+                }
+            ],
+            "submittedAt": "2020-11-05 12:01:49",
+            "guestName": "Diana Miller",
+            "listingName": "The Urban Jungle - Penthouse Suite"
+        },
+        {
+            "id": 7460,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 2.0,
+            "publicReview": "This was a very disappointing stay. The pictures were misleading and the apartment had a strong smell of smoke. The host denied it and was not helpful. We ended up leaving a day early. Would not recommend.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 2
+                },
+                {
+                    "category": "communication",
+                    "rating": 3
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 5
+                }
+            ],
+            "submittedAt": "2020-11-20 23:15:00",
+            "guestName": "Frank Garcia",
+            "listingName": "Luxury Lakeview Condo"
+        },
+        {
+            "id": 7461,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Shane was a great guest once again. Very low-maintenance and left the place in perfect condition.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-01-10 16:33:18",
+            "guestName": "Shane Finkelstein",
+            "listingName": "Cozy Downtown Loft"
+        },
+        {
+            "id": 7462,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 5.0,
+            "publicReview": "Stayed here for a work trip and it was perfect. Clean, quiet, and had everything I needed. The host provided excellent instructions for a smooth self-check-in.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-02-14 08:50:55",
+            "guestName": "Grace Lee",
+            "listingName": "Mountain Retreat with Hot Tub"
+        },
+        {
+            "id": 7463,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "We had some communication issues with Charlie regarding the check-out time, but otherwise, the stay was fine. The apartment was left in a reasonably clean state.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 8
+                },
+                {
+                    "category": "communication",
+                    "rating": 6
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 7
+                }
+            ],
+            "submittedAt": "2021-03-01 13:00:21",
+            "guestName": "Charlie Davis",
+            "listingName": "The Urban Jungle - Penthouse Suite"
+        },
+        {
+            "id": 7464,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 4.5,
+            "publicReview": "The bungalow was perfect for our getaway! Incredibly clean and steps from the beach. The check-in instructions were a little confusing, but we figured it out. Would stay again!",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 8
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-04-18 10:15:33",
+            "guestName": "Henry Wilson",
+            "listingName": "Seaside Bungalow"
+        },
+        {
+            "id": 7465,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Henry was a great guest. Followed all instructions and left the place in fantastic shape. Hope to host him again.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 9
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-04-20 11:00:01",
+            "guestName": "Henry Wilson",
+            "listingName": "Seaside Bungalow"
+        },
+        {
+            "id": 7466,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 3.0,
+            "publicReview": "The cabin itself is lovely, but the WiFi was non-existent despite being listed as an amenity. The host was not responsive when we tried to troubleshoot the issue. Disappointing for a 'work-from-nature' trip.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 8
+                },
+                {
+                    "category": "communication",
+                    "rating": 3
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-05-22 20:43:12",
+            "guestName": "Ivy Chen",
+            "listingName": "Rustic Forest Cabin"
+        },
+        {
+            "id": 7467,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Ivy and her partner were quiet guests and left the cabin in good order.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 9
+                },
+                {
+                    "category": "communication",
+                    "rating": 7
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 9
+                }
+            ],
+            "submittedAt": "2021-05-24 09:12:00",
+            "guestName": "Ivy Chen",
+            "listingName": "Rustic Forest Cabin"
+        },
+        {
+            "id": 7468,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Bob tried to check in with an extra, unannounced guest, which is against our 2-person limit. We had to have an awkward conversation to resolve it. The place was left reasonably tidy otherwise.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 7
+                },
+                {
+                    "category": "communication",
+                    "rating": 6
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 3
+                }
+            ],
+            "submittedAt": "2021-06-11 14:05:44",
+            "guestName": "Bob Williams",
+            "listingName": "Mountain Retreat with Hot Tub"
+        },
+        {
+            "id": 7469,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 5.0,
+            "publicReview": "Absolutely perfect stay. The loft is stylish, spotless, and in a great location. The host was incredibly welcoming. Will be my go-to spot for future visits!",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-07-01 18:21:51",
+            "guestName": "Jack Martinez",
+            "listingName": "Cozy Downtown Loft"
+        },
+        {
+            "id": 7470,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Jack was an exemplary guest. Great communication, and he left the apartment in pristine condition. A pleasure to host.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-07-03 12:00:00",
+            "guestName": "Jack Martinez",
+            "listingName": "Cozy Downtown Loft"
+        },
+        {
+            "id": 7471,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 4.0,
+            "publicReview": "Great studio, very clean and modern. It's a bit noisy at night from the street below, but that's expected in the city center. Overall a very good experience.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-08-15 09:30:19",
+            "guestName": "Shane Finkelstein",
+            "listingName": "Chic City Studio"
+        },
+        {
+            "id": 7472,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 1.5,
+            "publicReview": "The 'luxury' condo had a broken A/C unit in the middle of a heatwave. The host was unreachable for over a day while we were trying to get it fixed. This was a completely miserable experience.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 5
+                },
+                {
+                    "category": "communication",
+                    "rating": 1
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 8
+                }
+            ],
+            "submittedAt": "2021-08-25 22:55:00",
+            "guestName": "Karen Thompson",
+            "listingName": "Luxury Lakeview Condo"
+        },
+        {
+            "id": 7473,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "We sincerely apologize for the A/C issue which was due to an unexpected mechanical failure. Karen was understandably upset, and we regret that we couldn't resolve it faster.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 5
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 7
+                }
+            ],
+            "submittedAt": "2021-08-28 15:20:10",
+            "guestName": "Karen Thompson",
+            "listingName": "Luxury Lakeview Condo"
+        },
+        {
+            "id": 7474,
+            "type": "host-to-guest",
+            "status": "published",
+            "rating": null,
+            "publicReview": "Alice is a joy to host. This was her second stay with us (at a different property) and she was wonderful as always.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 10
+                },
+                {
+                    "category": "communication",
+                    "rating": 10
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-09-10 11:45:00",
+            "guestName": "Alice Johnson",
+            "listingName": "Rustic Forest Cabin"
+        },
+        {
+            "id": 7475,
+            "type": "guest-to-host",
+            "status": "published",
+            "rating": 3.5,
+            "publicReview": "The flat was fine for a night. Location was good, but the amenities were a bit basic for the price. It was clean enough.",
+            "reviewCategory": [
+                {
+                    "category": "cleanliness",
+                    "rating": 8
+                },
+                {
+                    "category": "communication",
+                    "rating": 7
+                },
+                {
+                    "category": "respect_house_rules",
+                    "rating": 10
+                }
+            ],
+            "submittedAt": "2021-10-02 16:00:32",
+            "guestName": "Bob Williams",
+            "listingName": "2B N1 A - 29 Shoreditch Heights"
         }
     ]
 }

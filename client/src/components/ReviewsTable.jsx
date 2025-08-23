@@ -146,7 +146,10 @@ const AdvancedFilter = ({ column, table }) => {
   );
 };
 
-const ReviewsTable = ({ data, onUpdateReview }) => {
+const ReviewsTable = ({ data, onUpdateReview }) => {  
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [columnFilters, setColumnFilters] = useState([]);
+
   const columns = useMemo(() => [
     {
       id: 'expander',
@@ -200,7 +203,6 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     {
       id: 'actions',
       header: 'Approve for Website',
-      enableColumnFilter: false,
       cell: ({ row }) => {
         const review = row.original;
 
@@ -234,9 +236,6 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
       },
     },
   ], [onUpdateReview]);
-
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [columnFilters, setColumnFilters] = useState([]);
 
   const table = useReactTable({
     data,
