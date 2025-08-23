@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   flexRender,
 } from '@tanstack/react-table';
 import axios from 'axios';
@@ -13,6 +14,19 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     {
       accessorKey: 'listingName',
       header: 'Property',
+    },
+    {
+      accessorKey: 'type',
+      header: 'Type',
+      cell: info => (
+        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+            info.getValue() === 'guest-to-host' 
+                ? 'bg-blue-100 text-blue-800' 
+                : 'bg-indigo-100 text-indigo-800'
+        }`}>
+            {info.getValue().replace('-', ' to ')}
+        </span>
+      )
     },
     {
       accessorKey: 'guestName',
@@ -71,6 +85,8 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 10 } },
   });
 
   return (

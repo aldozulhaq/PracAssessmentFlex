@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import ReviewsTable from '../components/ReviewsTable';
+import StatsCards from '../components/StatsCards';
 
 const DashboardPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -23,7 +25,7 @@ const DashboardPage = () => {
     };
 
     fetchReviews();
-  }, []); // Run once
+  }, []);
 
   if (loading) {
     return <div className="text-center p-8">Loading reviews...</div>;
@@ -44,8 +46,9 @@ const DashboardPage = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold text-flex-text mb-6">Manager Dashboard</h1>
+      <StatsCards reviews={reviews} />
       <p className="mb-4">
-        Here you can view, filter, and approve guest reviews for public display.
+        
       </p>
       <ReviewsTable data={reviews} onUpdateReview={handleUpdateReview} />
     </div>
