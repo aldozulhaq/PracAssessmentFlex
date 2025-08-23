@@ -7,13 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        'flex-dark-teal': '#2a4b47',
-        'flex-beige': '#fcfaf6',
-        'flex-light-gray': '#f3f4f6',
-        'flex-text': '#374151',
+        'flex-dark-green': '#334D4C', // Main dark color
+        'flex-white': '#FEFDF7',     // Main background (almost white)
+        'flex-cream': '#FDF9EA',     // Accent background (slightly more yellow)
+        'flex-text-primary': '#333333', // Primary text color
+        'flex-text-secondary': '#555555', // Lighter text color
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
       }
     },
   },

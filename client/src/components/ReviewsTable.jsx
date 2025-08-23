@@ -117,7 +117,7 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
   });
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-subtle border border-gray-100">
       
       <div className="mb-4">
         <input
@@ -125,17 +125,17 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
           value={globalFilter ?? ''}
           onChange={e => setGlobalFilter(e.target.value)}
           placeholder="Search all columns..."
-          className="border shadow rounded px-3 py-2 w-full md:w-1/3"
+          className="border-gray-200 shadow-sm rounded-md px-3 py-2 w-full md:w-1/3 focus:ring-2 focus:ring-flex-dark-green focus:border-transparent"
         />
       </div>
       
-      <table className="w-full border-collapse">
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id} className="p-3 text-left text-sm font-bold text-gray-500 uppercase border-b">
-                  {/* Sorting later here */}
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <th key={header.id} className="p-3 text-left text-sm font-semibold text-flex-text-secondary uppercase tracking-wider border-b border-gray-200 align-top">
                   <div
                     onClick={header.column.getToggleSortingHandler()}
                     className="cursor-pointer select-none"
@@ -155,19 +155,60 @@ const ReviewsTable = ({ data, onUpdateReview }) => {
               ))}
             </tr>
           ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id} className="hover:bg-flex-light-gray border-b">
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className="p-3">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id} className="hover:bg-flex-cream border-b border-gray-100">
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id} className="p-3 text-sm text-flex-text-primary">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Pagination */}
+        <div className="flex items-center justify-between mt-4 text-sm text-flex-text-secondary">
+          <span className="text-sm text-gray-600">
+            Page{' '}
+            <strong>
+              {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            </strong>
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => table.setPageIndex(0)}
+              disabled={!table.getCanPreviousPage()}
+              className="px-2 py-1 border rounded disabled:opacity-50"
+            >
+              {'<<'}
+            </button>
+            <button
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="px-2 py-1 border rounded disabled:opacity-50"
+            >
+              {'<'}
+            </button>
+            <button
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              className="px-2 py-1 border rounded disabled:opacity-50"
+            >
+              {'>'}
+            </button>
+            <button
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              disabled={!table.getCanNextPage()}
+              className="px-2 py-1 border rounded disabled:opacity-50"
+            >
+              {'>>'}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

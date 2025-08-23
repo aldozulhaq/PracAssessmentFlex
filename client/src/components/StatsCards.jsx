@@ -32,6 +32,7 @@ const StatsCards = ({ reviews }) => {
       <StatCard title="Reviews to Approve" value={stats.pendingReviews} />
       <StatCard title="Approved for Website" value={stats.approvedReviews} />
     </div>
+    
   );
 };
 

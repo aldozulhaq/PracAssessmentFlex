@@ -44,13 +44,21 @@ const DashboardPage = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-flex-text mb-6">Manager Dashboard</h1>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold text-flex-dark-green">Manager Dashboard</h1>
+        <p className="mt-2 text-flex-text-secondary">
+          Review, filter, and approve guest reviews for public display.
+        </p>
+      </div>
+      
       <StatsCards reviews={reviews} />
-      <p className="mb-4">
-        
-      </p>
-      <ReviewsTable data={reviews} onUpdateReview={handleUpdateReview} />
+      
+      {/* We can wrap the table in a container for a title */}
+      <div>
+         <h2 className="text-2xl font-bold text-flex-dark-green mb-4">All Reviews</h2>
+         <ReviewsTable data={reviews} onUpdateReview={handleUpdateReview} />
+      </div>
     </div>
   );
 };

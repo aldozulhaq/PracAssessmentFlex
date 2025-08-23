@@ -1,26 +1,38 @@
 import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
+import flexLogo from './assets/image.webp';
 
 function App() {
-  const navLinkStyles = ({ isActive }) => ({
-    fontWeight: isActive ? 'bold' : 'normal',
-    textDecoration: isActive ? 'underline' : 'none',
-  });
+  const navLinkClass = ({ isActive }) =>
+    `py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+      isActive
+        ? 'bg-white bg-opacity-10 text-white'
+        : 'text-gray-300 hover:bg-white hover:bg-opacity-10'
+    }`;
 
   return (
-    <div className="font-sans bg-flex-beige min-h-screen text-flex-text">
-      <header className="bg-flex-dark-teal text-white shadow-md">
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold">Flex Reviews</div>
-          <ul className="flex space-x-6">
-            <li><NavLink to="/" style={navLinkStyles}>Manager Dashboard</NavLink></li>
-            <li><NavLink to="/property/2B N1 A - 29 Shoreditch Heights" style={navLinkStyles}>Public Page (Example)</NavLink></li>
-            <li><NavLink to="/dev-tools" style={navLinkStyles}>Dev Tools</NavLink></li>
-          </ul>
+    <div className="bg-flex-white min-h-screen">
+      <header className="bg-flex-dark-green">
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <img className="h-6 w-auto filter brightness-0 invert" src={flexLogo} alt="Flex Living" />
+            </div>
+            <div className="flex items-center space-x-4">
+              <NavLink to="/" className={navLinkClass}>
+                Dashboard
+              </NavLink>
+              <NavLink to="/property/2B N1 A - 29 Shoreditch Heights" className={navLinkClass}>
+                Public View
+              </NavLink>
+              <NavLink to="/dev-tools" className={navLinkClass}>
+                Dev Tools
+              </NavLink>
+            </div>
+          </div>
         </nav>
       </header>
-      <main className="container mx-auto p-6">
-        {}
+      <main className="container mx-auto p-4 sm:p-6 lg:p-8">
         <Outlet />
       </main>
     </div>
