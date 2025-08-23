@@ -1,7 +1,95 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import BookingCard from '../components/public/BookingCard';
+import ReviewCard from '../components/public/ReviewCard';
+import StarRating from '../components/public/StarRating';
 
 const PropertyPage = () => {
-  return <div><h1>Public Property Page</h1></div>;
+  const { listingName } = useParams();
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPublicReviews = async () => {
+      try {
+        setLoading(true);
+        const { data } = await axios.get(`/api/reviews/public/${encodeURIComponent(listingName)}`);
+        setReviews(data);
+      } catch (err) {
+        setError('Could not load reviews for this property.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchPublicReviews();
+  }, [listingName]);
+
+  const overallRating = useMemo(() => {
+    if (reviews.length === 0) return 0;
+    const total = reviews.reduce((acc, r) => acc + r.averageRating, 0);
+    return (total / reviews.length).toFixed(2);
+  }, [reviews]);
+
+  return (
+    <div className="bg-flex-white">
+      <div className="border-b border-gray-200 pb-4 mb-8">
+        <h1 className="text-4xl font-bold text-flex-dark-green">{listingName}</h1>
+      </div>
+
+      <div className="flex flex-col lg:flex-row lg:space-x-12">
+        <div className="w-full lg:w-2/3 space-y-12">
+          <div className="bg-gray-200 h-96 rounded-lg animate-pulse"></div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-flex-dark-green mb-2">About this space</h2>
+            <p className="text-flex-text-secondary leading-relaxed">
+              This is a placeholder description for the beautiful {listingName}. It has wonderful amenities and is located in a prime location, perfect for your next getaway. We are sure you will enjoy your stay.
+            </p>
+          </div>
+
+          <div id="reviews">
+            <h2 className="text-2xl font-bold text-flex-dark-green mb-4">
+              What our guests are saying
+            </h2>
+
+            {loading && <p>Loading reviews...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            
+            {!loading && !error && (
+              <>
+                {reviews.length > 0 ? (
+                  <>
+                    <div className="flex items-center space-x-2 mb-6">
+                      <StarRating rating={overallRating} />
+                      <span className="font-bold text-lg">{overallRating}</span>
+                      <span className="text-flex-text-secondary">({reviews.length} reviews)</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {reviews.map(review => (
+                        <ReviewCard key={review._id} review={review} />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-flex-text-secondary italic">
+                    No guest reviews have been approved for display yet.
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
+          <BookingCard />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PropertyPage;
